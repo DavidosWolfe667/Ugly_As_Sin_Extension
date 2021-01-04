@@ -31,7 +31,7 @@ More detailed documentation is in progress for all features and will be located 
 
 *Ugly as Sin* is always under rapid development and typically targets the "bleeding edge" `main` branch of Hideous Destructor. Bugs may be reported here as Github Issues, on the ZDoom forums in the Ugly as Sin thread, or on the Hideous Destructor discord server.
 
-To download, click the **Code** button on Github or use [this link](https://github.com/caligari87/Ugly-as-Sin/archive/master.zip) to obtain the latest version as a `.zip` file. This file may be loaded like a `.wad` or `.pk3` file directly into GZDoom *after* Hideous Destructor.
+To download the ORIGINAL UaS, click the **Code** button on Github or use [this link](https://github.com/caligari87/Ugly-as-Sin/archive/master.zip) to obtain the latest version as a `.zip` file. This file may be loaded like a `.wad` or `.pk3` file directly into GZDoom *after* Hideous Destructor.
 
 ## Addition
 
