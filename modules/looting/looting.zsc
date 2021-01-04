@@ -1,0 +1,305 @@
+class UaS_SearchedCorpseMarker : Inventory {
+	double searchedAmount;
+	bool foundSomething;
+	string lastMessage;
+}
+
+class UaS_Looting_Handler : Inventory {
+	int cooldown;
+	bool foundSomething;
+	double anglevel, pitchvel;
+
+	default {
+		+INVENTORY.PERSISTENTPOWER;
+		+INVENTORY.UNDROPPABLE;
+		-INVENTORY.INVBAR;
+		+INVENTORY.UNTOSSABLE;
+	}
+
+	override void BeginPlay() {
+		super.BeginPlay();
+		InitializeLootTables();
+		InitializeStrings();
+	}
+
+	override void DoEffect() {
+		super.DoEffect();
+		if (!owner) { return; }
+		if (owner.health <= 0) { return; }
+		if (!owner.player.ReadyWeapon) { return; }
+		if (!(owner.player.ReadyWeapon is "HDFist")) { return; }
+
+		if (TryingToSearch()) {
+			FLineTraceData trace;
+			owner.LineTrace(owner.angle, 32, owner.pitch, offsetz: (owner.height / 2), data: trace);
+			if (trace.HitActor && trace.HitActor.bCorpse) {
+				DoSearch(trace.HitActor);
+				cooldown = max(cooldown - 1, 0);
+			}
+		}
+
+		HDPlayerPawn(owner).wephelptext = HDWeapon(owner.player.ReadyWeapon).gethelptext()..
+			WEPHELP_USE.."   Crouch next to a body\n      and hold to search.";
+
+		// Nudge owner angle/pitch
+		owner.angle += anglevel;
+		owner.pitch += pitchvel;
+		anglevel *= 0.75;
+		pitchvel *= 0.75;
+	}
+
+	bool TryingToSearch() {
+		return (
+			(owner.player.cmd.buttons & BT_USE) &&
+			owner.player.CrouchFactor <= 0.5);
+	}
+
+	void DoSearch(actor searchTarget) {
+		UaS_SearchedCorpseMarker searchMarker;
+		if (!searchTarget) { return; }
+		if (searchTarget.countinv("UaS_SearchedCorpseMarker") == 0) { searchTarget.GiveInventory("UaS_SearchedCorpseMarker", 1); }
+		searchMarker = UaS_SearchedCorpseMarker(searchTarget.FindInventory("UaS_SearchedCorpseMarker"));
+		if (!searchMarker) { return; }
+
+		//Actually do the search
+		if (cooldown == 0) {
+			if (searchMarker.SearchedAmount >= 1.0) {
+				HDWeapon currentWeapon = HDWeapon(owner.player.ReadyWeapon);
+				if(searchMarker.lastMessage == "") { searchMarker.lastMessage = FlavorText(searchMarker.foundSomething); }
+				currentWeapon.A_WeaponMessage(searchMarker.lastMessage);
+				return;
+			}
+			owner.A_StartSound("weapons/pocket", volume: frandom(0.5, 0.75));
+			searchMarker.searchedAmount += frandom(0.05, 0.1);
+			anglevel += frandom[loot](-1, 1);
+			pitchvel += frandom[loot](-1, 1);
+			cooldown = random[loot](10,25);
+			double chance = clamp(searchMarker.searchedAmount, 0, UaS_LootingFactor);
+			if (UaS.RandomChance(chance)) {
+				if(SpawnLoot(searchTarget)) {
+					searchMarker.searchedAmount += frandom[loot](0.0, 1.0 - UaS_LootingFactor);
+					searchMarker.foundSomething = true;
+				}
+			}
+		}
+	}
+
+	bool SpawnLoot(actor spawnTarget) {
+		int tableSize = 0;
+		int lootIndex = 0;
+		string LootClass = "";
+		int minAmount = 0;
+		int maxAmount = 0;
+		double rarityFactor = 0;
+
+		if(spawnTarget is "ZombieStormtrooper") {
+			int weapontype = ZombieStormtrooper(spawnTarget).firemode;
+			switch(weapontype) {
+				case -2:
+					tableSize = ZombieStormtrooperSMGLoot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = ZombieStormtrooperSMGLoot[lootIndex].itemName;
+					minAmount = ZombieStormtrooperSMGLoot[lootIndex].minAmount;
+					maxAmount = ZombieStormtrooperSMGLoot[lootIndex].maxAmount;
+					rarityFactor = ZombieStormtrooperSMGLoot[lootIndex].rarityFactor;
+					break;
+				default:
+					tableSize = ZombieStormtrooperZM66Loot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = ZombieStormtrooperZM66Loot[lootIndex].itemName;
+					minAmount = ZombieStormtrooperZM66Loot[lootIndex].minAmount;
+					maxAmount = ZombieStormtrooperZM66Loot[lootIndex].maxAmount;
+					rarityFactor = ZombieStormtrooperZM66Loot[lootIndex].rarityFactor;
+					break;
+			}
+		}
+		if(spawnTarget is "HideousShotgunGuy") {
+			int weapontype = HideousShotgunGuy(spawnTarget).wep;
+			switch(weapontype) {
+				case -1:
+					tableSize = ZombieStormtrooperZM66Loot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = ZombieStormtrooperZM66Loot[lootIndex].itemName;
+					minAmount = ZombieStormtrooperZM66Loot[lootIndex].minAmount;
+					maxAmount = ZombieStormtrooperZM66Loot[lootIndex].maxAmount;
+					rarityFactor = ZombieStormtrooperZM66Loot[lootIndex].rarityFactor;
+					break;
+				default:
+					tableSize = HideousShotgunGuyLoot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = HideousShotgunGuyLoot[lootIndex].itemName;
+					minAmount = HideousShotgunGuyLoot[lootIndex].minAmount;
+					maxAmount = HideousShotgunGuyLoot[lootIndex].maxAmount;
+					rarityFactor = HideousShotgunGuyLoot[lootIndex].rarityFactor;
+					break;
+			}
+		}
+		if(spawnTarget is "VulcanetteGuy") {
+			tableSize = DragonGuardLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = DragonGuardLoot[lootIndex].itemName;
+			minAmount = DragonGuardLoot[lootIndex].minAmount;
+			maxAmount = DragonGuardLoot[lootIndex].maxAmount;
+			rarityFactor = DragonGuardLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_vsr_akm") {
+			tableSize = ru_vsr_akmLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_vsr_akmLoot[lootIndex].itemName;
+			minAmount = ru_vsr_akmLoot[lootIndex].minAmount;
+			maxAmount = ru_vsr_akmLoot[lootIndex].maxAmount;
+			rarityFactor = ru_vsr_akmLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_vsr_aks") {
+			tableSize = ru_vsr_aksLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_vsr_aksLoot[lootIndex].itemName;
+			minAmount = ru_vsr_aksLoot[lootIndex].minAmount;
+			maxAmount = ru_vsr_aksLoot[lootIndex].maxAmount;
+			rarityFactor = ru_vsr_aksLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_emr_akm") {
+			tableSize = ru_emr_akmLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_emr_akmLoot[lootIndex].itemName;
+			minAmount = ru_emr_akmLoot[lootIndex].minAmount;
+			maxAmount = ru_emr_akmLoot[lootIndex].maxAmount;
+			rarityFactor = ru_emr_akmLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_emr_aks") {
+			tableSize = ru_emr_aksLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_emr_aksLoot[lootIndex].itemName;
+			minAmount = ru_emr_aksLoot[lootIndex].minAmount;
+			maxAmount = ru_emr_aksLoot[lootIndex].maxAmount;
+			rarityFactor = ru_emr_aksLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m4c") {
+			tableSize = usmc_m4cLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m4cLoot[lootIndex].itemName;
+			minAmount = usmc_m4cLoot[lootIndex].minAmount;
+			maxAmount = usmc_m4cLoot[lootIndex].maxAmount;
+			rarityFactor = usmc_m4cLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m4cm203") {
+			tableSize = usmc_m4cm203Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m4cm203Loot[lootIndex].itemName;
+			minAmount = usmc_m4cm203Loot[lootIndex].minAmount;
+			maxAmount = usmc_m4cm203Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m4cm203Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m14") {
+			tableSize = usmc_m14Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m14Loot[lootIndex].itemName;
+			minAmount = usmc_m14Loot[lootIndex].minAmount;
+			maxAmount = usmc_m14Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m14Loot[lootIndex].rarityFactor;
+			}
+		if(spawnTarget is "usmc_m249") {
+			tableSize = usmc_m249Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m249Loot[lootIndex].itemName;
+			minAmount = usmc_m249Loot[lootIndex].minAmount;
+			maxAmount = usmc_m249Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m249Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_fostech") {
+			tableSize = usmc_fostechLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_fostechLoot[lootIndex].itemName;
+			minAmount = usmc_fostechLoot[lootIndex].minAmount;
+			maxAmount = usmc_fostechLoot[lootIndex].maxAmount;
+			rarityFactor = usmc_fostechLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_mp5") {
+			tableSize = usmc_mp5Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_mp5Loot[lootIndex].itemName;
+			minAmount = usmc_mp5Loot[lootIndex].minAmount;
+			maxAmount = usmc_mp5Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_mp5Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "op_uzi") {
+			tableSize = op_uziLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = op_uziLoot[lootIndex].itemName;
+			minAmount = op_uziLoot[lootIndex].minAmount;
+			maxAmount = op_uziLoot[lootIndex].maxAmount;
+			rarityFactor = op_uziLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "op_m107") {
+			tableSize = op_m107Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = op_m107Loot[lootIndex].itemName;
+			minAmount = op_m107Loot[lootIndex].minAmount;
+			maxAmount = op_m107Loot[lootIndex].maxAmount;
+			rarityFactor = op_m107Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "HDMarine") {
+			int weapontype = HDMarine(spawnTarget).wep;
+			switch(weapontype) {
+				case 1:
+					tableSize = HDMarineZM66Loot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = HDMarineZM66Loot[lootIndex].itemName;
+					minAmount = HDMarineZM66Loot[lootIndex].minAmount;
+					maxAmount = HDMarineZM66Loot[lootIndex].maxAmount;
+					rarityFactor = HDMarineZM66Loot[lootIndex].rarityFactor;
+					break;
+				case 2:
+					tableSize = HDMarineHunterLoot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = HDMarineHunterLoot[lootIndex].itemName;
+					minAmount = HDMarineHunterLoot[lootIndex].minAmount;
+					maxAmount = HDMarineHunterLoot[lootIndex].maxAmount;
+					rarityFactor = HDMarineHunterLoot[lootIndex].rarityFactor;
+					break;
+				case 3:
+					tableSize = HDMarineSMGLoot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = HDMarineSMGLoot[lootIndex].itemName;
+					minAmount = HDMarineSMGLoot[lootIndex].minAmount;
+					maxAmount = HDMarineSMGLoot[lootIndex].maxAmount;
+					rarityFactor = HDMarineSMGLoot[lootIndex].rarityFactor;
+					break;
+				case 4:
+					tableSize = HDMarineRocketLoot.Size() - 1;
+					lootIndex = random(0, tableSize);
+					LootClass = HDMarineRocketLoot[lootIndex].itemName;
+					minAmount = HDMarineRocketLoot[lootIndex].minAmount;
+					maxAmount = HDMarineRocketLoot[lootIndex].maxAmount;
+					rarityFactor = HDMarineRocketLoot[lootIndex].rarityFactor;
+					break;
+			}
+		}
+
+		// Actually spawn the picked thing and return true
+		if (UaS.RandomChance(rarityFactor)) {
+			if(UaS_Debug & Looting) { console.printf("Loot spawn: "..LootClass); }
+			UaS.SpawnStuff(LootClass, random[loot](minAmount, maxAmount), spawnTarget.pos, true);
+			return true;
+		}
+
+		// Otherwise spawn some random debris and return false
+		for (int i = 0; i < 3; i++) { spawnTarget.A_SpawnItemEx("TinyWallChunk", 0, 0, 4, random[loot](4, 7), random[loot](-2, 2), random[loot](-2, 1), 0, SXF_NOCHECKPOSITION); }
+		return false;
+	}
+}
+
+class UaS_LootEntry {
+	name itemName;
+	int minAmount, maxAmount;
+	double rarityFactor;
+
+	static UaS_LootEntry create(name newName, int newMin, int newMax, double rarity) {
+		UaS_LootEntry newEntry = new("UaS_LootEntry");
+		newEntry.itemName = newName;
+		newEntry.minAmount = newMin;
+		newEntry.maxAmount = newMax;
+		newEntry.rarityFactor = rarity;
+		return newEntry;
+	}
+}

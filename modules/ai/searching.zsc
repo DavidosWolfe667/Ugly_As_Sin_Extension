@@ -1,0 +1,129 @@
+// Searching behavior
+
+extend class UaS_AI_Handler {
+	int countdown;
+	actor lastKnown;
+
+	void SearchBehavior() {
+		// Return conditions
+		if(!UaS_AI_Searching) { return; }
+		if(owner.health <= 0) { return; }
+
+		// Normal following behavior plus visibility checks
+		if (owner.target && owner.target is "HDPlayerPawn") {
+			if (lastknown) { lastKnown.destroy(); }
+
+			// Clear ambush flag if needed
+			if (owner.CheckIfTargetInLOS() && owner.bAMBUSH) {
+				owner.bAMBUSH = false;
+				if(UaS_Debug & Searching) { A_Log(owner.GetClassName()..score.." ambush flag cleared."); }
+			}
+
+			// Forget player and set a search node if out of LoS, shadow, and not ambushing
+			if (!owner.CheckIfTargetInLOS() || (owner.target.bShadow && random(0,35) == 0)) {
+				if (!owner.bAMBUSH) {
+					countdown = random(30*35, 60*35);
+					lastKnown = actor.spawn("UaS_LastKnownMarker", owner.target.pos, ALLOW_REPLACE);
+					lastKnown.angle = owner.angle;
+					ForgetTarget(owner);
+					owner.goal = lastKnown;
+					owner.target = lastKnown;
+					if(UaS_Debug & Searching) { A_Log(owner.GetClassName()..score.." lost target!"); }
+				}
+				else { ForgetTarget(owner); }
+			}
+		}
+
+		// Spawn new path nodes as reached
+		if (countdown > 0 && !owner.target) {
+			double lastAngle, lastDist, nextAngle;
+			vector3 nextNode;
+			FLineTraceData testNode;
+
+			// base angle off last node or owner
+			if (lastKnown) {
+				lastAngle = lastKnown.angle;
+				lastKnown.destroy();
+			}
+			else { lastAngle = owner.angle; }
+
+			// Check 5 random angle offsets for longest path
+			for (int i = 0; i < 10; i++) {
+				int testOffset = random(-90, 90);
+				owner.LineTrace(lastAngle + testOffset, 256, 0, TRF_THRUACTORS|TRF_THRUHITSCAN, owner.height/2, data: testNode);
+				if (testnode.Distance > lastDist) {
+					nextNode = testNode.HitLocation;
+					nextAngle = lastAngle + testOffset;
+				}
+				lastDist = testnode.Distance;
+			}
+
+			// Spawn and set the node
+			lastKnown = actor.spawn("UaS_LastKnownMarker", nextNode, ALLOW_REPLACE);
+			lastKnown.angle = nextAngle;
+			owner.goal = lastKnown;
+			owner.target = lastKnown;
+			if(UaS_Debug & Searching) { A_Log(owner.GetClassName()..score.." picked new pathnode."); }
+		}
+
+		// Give up the search when the countdown runs out
+		if (countdown == 0) {
+			if (lastknown) { lastKnown.destroy(); }
+			if (UaS_Debug & Searching) { A_Log(owner.GetClassName()..score.." gave up the search"); }
+		}
+
+		// Decrement timer
+		countdown = max(countdown - 1, -1);
+		if ((UaS_Debug & Searching) && (countdown % 175 == 1)) { A_Log(owner.GetClassName()..score.." searching for "..(countdown/35)); }
+	}
+
+	void ForgetTarget(actor which) {
+		// Built-in target-clearing functions
+		which.A_ClearTarget();
+		which.A_ClearSoundTarget();
+		which.A_ClearLastHeard();
+
+		// No idea if this does anything
+		which.cursector.SoundTarget = null;
+
+		// May as well go full-retard
+		for(int i = 0; i < Level.Sectors.Size(); i++) {
+			Level.Sectors[i].SoundTarget = null;
+		}
+
+		// Reset to idle/spawn for HD monsters
+		if (which.FindState("idle")) { which.SetStateLabel("idle"); }
+		else { which.SetStateLabel("spawn"); }
+
+		// Clear HD mob AI goal-setter
+		ThinkerIterator mobit = ThinkerIterator.Create("HDMobster");
+		Actor currentMobster;
+		while (currentMobster = Actor(mobit.Next())) {
+			if (currentMobster.master == which) {
+				currentMobster.target = null;
+			}
+		}
+	}
+}
+
+// Marker for last known position
+class UaS_LastKnownMarker : Actor {
+
+	default {
+		+NOINTERACTION;
+		+FLATSPRITE;
+		Radius 1;
+		Height 1;
+		Health 0;
+	}
+
+	states {
+	spawn:
+		TNT1 A 0 NoDelay {
+			SetOrigin((pos.xy, floorz),false);
+			if(UaS_Debug & Searching) { sprite = GetSpriteIndex('AMRK'); }
+		}
+		"####" A 700 BRIGHT;
+		stop;
+	}
+}

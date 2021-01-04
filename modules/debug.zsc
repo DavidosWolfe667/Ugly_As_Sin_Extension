@@ -1,0 +1,14 @@
+enum UaS_Debug_Flags {
+	Hunger = 1,
+	Scarcity = 2,
+	Debris = 4,
+	Sling = 8,
+	Frag = 16,
+	Med = 32,
+	Allies = 64,
+	AI = 128,
+	Jamming = 256,
+	Looting = 512,
+	Stealth = 1024,
+	Searching = 2048,
+};

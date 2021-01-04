@@ -1,0 +1,20 @@
+HardwareShader PostProcess scene {
+	Name "vignetteshader"
+	Shader "shaders/uas_vignette.fp" 330
+	Uniform float intensity
+	Uniform float falloff
+}
+
+HardwareShader PostProcess scene
+{
+	Name "stealthvision"
+	Shader "shaders/uas_stealth.fp" 330
+	Uniform float stealth
+}
+
+HardwareShader PostProcess scene
+{
+	Name "deathfade"
+	Shader "shaders/uas_deathfade.fp" 330
+	Uniform float fadeamount
+}

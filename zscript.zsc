@@ -1,0 +1,63 @@
+version "4.5"
+
+// Static functions
+#include "modules/static.zsc"
+
+// Debugging
+#include "modules/debug.zsc"
+
+// Constants
+#include "modules/constants.zsc"
+#include "modules/bootstrap/bootstrap.zsc"
+
+// General spawner
+#include "modules/spawner/spawner.zsc"
+
+// Hunger and Thirst scripts
+#include "modules/hunger/spawner.zsc"
+#include "modules/hunger/tracker.zsc"
+#include "modules/hunger/items.zsc"
+#include "modules/hunger/messkit.zsc"
+
+// Scarcity scripts
+#include "modules/scarcity/handler.zsc"
+#include "modules/scarcity/items.zsc"
+
+// Frag spawning factor
+#include "modules/fragfactor/fragfactor.zsc"
+
+// Allied marine spawning
+#include "modules/allies/spawner.zsc"
+
+// Monster AI
+#include "modules/ai/bootstrap.zsc"
+#include "modules/ai/tracker.zsc"
+#include "modules/ai/wounded.zsc"
+#include "modules/ai/searching.zsc"
+#include "modules/ai/flashlight.zsc"
+#include "modules/ai/stealth.zsc"
+
+// Corpse Looting
+#include "modules/looting/looting.zsc"
+#include "modules/looting/loottables.zsc"
+#include "modules/looting/flavortext.zsc"
+
+// Visual Weapons
+#include "modules/visweps/visweps.zsc"
+
+// Standalone items
+#include "modules/items/2f.zsc"
+#include "modules/items/sling.zsc"
+#include "modules/items/glowstick.zsc"
+#include "modules/items/flare.zsc"
+#include "modules/items/laser.zsc"
+#include "modules/items/resp.zsc"
+#include "modules/items/traumakit/handler.zsc"
+#include "modules/items/traumakit/traumakit.zsc"
+#include "modules/items/traumakit/stabilize.zsc"
+#include "modules/items/ammoboxes.zsc"
+
+#include "modules/aimsway/aimsway.zsc"
+#include "modules/deathfade/deathfade.zsc"
+#include "modules/yolo/yolo.zsc"
+#include "modules/jamming/jamming.zsc"

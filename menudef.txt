@@ -1,0 +1,200 @@
+OptionValue "UaS_Nice_Timescales" {
+	1,   "1x Realtime"
+	2,   "2x Realtime"
+	5,   "5x  Realtime"
+	10,  "10x Realtime"
+	20,  "20x Realtime"
+	30,  "30x Realtime"
+	40,  "40x Realtime"
+	50,  "50x Realtime"
+	60,  "60x Realtime"
+}
+
+OptionValue "FocusModes" {
+	0, 	"Focus key"
+	1,	"Zoom key only"
+	2,	"Use key only"
+}
+
+AddOptionMenu "OptionsMenu" {
+	StaticText " "
+	Submenu "Ugly as Sin Settings", "UaS_Options"
+}
+
+AddOptionMenu "HDOptionsMenu" after "HDControlsMenu" {
+	Submenu "Ugly as Sin Settings", "UaS_Options"
+}
+
+// ---------------
+// Main Options
+// ---------------
+
+OptionMenu "UaS_Options" {
+	Title "Ugly as Sin Settings"
+
+	Option "Hunger","UaS_HungerEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_Hunger_Options"
+	StaticText " "
+
+	Option "Scarcity","UaS_ScarcityEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_Scarcity_Options"
+	StaticText " "
+
+	Option "Fragshard Reducer","UaS_FragReducerEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_Frag_Options"
+	StaticText " "
+
+	Option "Allied Marines","UaS_AlliesEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_Ally_Options"
+	StaticText " "
+
+	Option "Advanced AI","UaS_AdvancedAIEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_AI_Options"
+	StaticText " "
+
+	Option "Corpse Looting","UaS_LootingEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_Looting_Options"
+	StaticText " "
+
+	Option "Visual Weapons","UaS_VisWepsEnabled","OnOff"
+	SubMenu "Settings and Info", "UaS_VisWep_Options"
+	StaticText " "
+
+	Option "Focus Zoom","UaS_FocusZoomEnabled","OnOff"
+	Option "Focus Zoom Mode","UaS_FocusZoomMode","FocusModes"
+	Option "Aim Sway","UaS_AimSwayEnabled","OnOff"
+	Control "Toggle Laser/Flashlight Module", "use UaS_LaserLightModule"
+	Option "Flashlight Beams", "UaS_FlashlightParticles", "OnOff"
+	Option "Death Fading", "UaS_DeathFade", "OnOff"
+	Option "Weapon Jamming", "UaS_JammingEnabled", "OnOff"
+	Option "Replace ammoboxes", "UaS_ReplaceAmmoboxes", "OnOff"
+
+	StaticText "Changing module configuration mid-game may cause"
+	StaticText "unpredictable results. A new game is recommended when"
+	StaticText "enabling, disabling, or changing module settings."
+
+	//SubMenu "Misc Options", "UaS_Misc_Options"
+}
+
+// ---------------
+// Submenus
+// ---------------
+
+OptionMenu "UaS_Hunger_Options" {
+	Title "Hunger Module"
+	Option "Timescale","UaS_HungerTimeScale","UaS_Nice_Timescales"
+	Option "Eat/Drink Auto-Select","UaS_HungerAutoselect","OnOff"
+	Slider "Ration Spawn Multiplier","UaS_HungerRationRate", 0, 5, 0.1, 1
+	StaticText "Adds need to eat / drink, with messkit."
+	StaticText "Starvation / dehydration causes fatigue."
+	StaticText " "
+	StaticText "Ration spawn multiplier increases or"
+	StaticText "decreases chance for ration spawns"
+	StaticText " "
+	StaticText "Auto-Select automatically picks whether"
+	StaticText "to eat or drink, depending on need."
+	StaticText " "
+	StaticText "Hunger requires new map or game."
+	StaticText "Rations spawn only on new map."
+	StaticText "Messkit spawns on new map if lost."
+}
+
+OptionMenu "UaS_Scarcity_Options" {
+	Title "Scarcity Module"
+	ScaleSlider "Scarcity rate","UaS_ScarcityRate", 0, 100, 5, "Disabled"
+	Slider "Overspawn ratio","UaS_ScarcityOverspawn", 0, 1, 0.05, 2
+	Option "Disable drops","UaS_ScarcityDisableDrops","OnOff"
+	StaticText "Removes or reduces map spawns, forcing"
+	StaticText "you to scavenge for your supplies."
+	StaticText " "
+	StaticText "Scarcity controls removal percentage."
+	StaticText "Overspawn controls what's left over."
+	StaticText " "
+	StaticText "Disable drops prevents monsters"
+	StaticText "from dropping ammo or weapons"
+	StaticText " "
+	StaticText "Requires new map or game to take effect."
+}
+
+OptionMenu "UaS_Reloader_Options" {
+	Title "Reloading Kit Module"
+	Option "Auto-Continue","UaS_ReloaderAutoContinue","OnOff"
+	StaticText "A reloading kit for 7.76mm ammo."
+	StaticText "Requires 7.76mm brass and 4.26mm rounds."
+	StaticText " "
+	StaticText "Auto-Continue allows holding button"
+	StaticText "instead of pressing for each round."
+	StaticText " "
+	StaticText "Given to Lib/Boss loadouts on new game,"
+	StaticText "or spawns on those weapons in new map."
+}
+
+OptionMenu "UaS_Frag_Options" {
+	Title "Fragshard Reducer Module"
+	ScaleSlider "Frag spawn rate","UaS_FragSpawnRate", 0, 100, 5, "Frag Disabled"
+	Command "Remove Frag", "netevent UaS_RemoveFrag"
+	StaticText "Prevent frag shards from spawning."
+	StaticText " "
+	StaticText "Rate is chance that new shards spawn."
+	StaticText "Remove Frag clears all existing shards."
+	StaticText " "
+	StaticText "Takes effect immediately."
+}
+
+OptionMenu "UaS_Ally_Options" {
+	Title "Allies Module"
+	ScaleSlider "Ally spawn rate","UaS_AllySpawnRate", 0, 100, 5, "Disabled"
+	StaticText "Spawns friendly marines randomly on map,"
+	StaticText "mostly replacing decorative corpses."
+	StaticText " "
+	StaticText "Rate is random chance for spawn."
+	StaticText " "
+	StaticText "Requires new map to take effect."
+}
+
+OptionMenu "UaS_AI_Options" {
+	Title "Advanced AI Module"
+	Option "Searching","UaS_AI_Searching","OnOff"
+	Option "Wounding","UaS_AI_Wounding","OnOff"
+	Option "Lights","UaS_AI_Flashlights","OnOff"
+	Option "Stealth","UaS_AI_Stealth","OnOff"
+	StaticText "Adds some flavor to AI behavior."
+	StaticText " "
+	StaticText "Searching makes monsters wander last"
+	StaticText "player location, and eventually forget."
+	StaticText " "
+	StaticText "Wounding adds speed and aiming"
+	StaticText "debuffs to monsters when wounded."
+	StaticText " "
+	StaticText "Monster lights lets human-type monsters"
+	StaticText "activate lights or lasers in dark areas."
+	StaticText "(visual effect only, no behavior changes)"
+	StaticText " "
+	StaticText "Stealth makes it harder for monsters to"
+	StaticText "see the player in low-light areas."
+	StaticText " "
+	StaticText "Toggling module requires new map or game."
+	StaticText "Behaviors can be toggled when AI active."
+}
+
+OptionMenu "UaS_Looting_Options" {
+	Title "Corpse Looting Module"
+	Slider "Loot Factor","UaS_LootingFactor", 0.05, 1.0, 0.05, 2
+	StaticText "Allows searching corpses for supplies."
+	StaticText " "
+	StaticText "Loot Factor controls maximum"
+	StaticText "chance for finding loot."
+}
+
+OptionMenu "UaS_VisWep_Options" {
+	Title "Visual Weapons Module"
+	StaticText "Attempts to change marine and tango"
+	StaticText "sprites depending on the current weapon."
+	StaticText " "
+	StaticText "--Disclaimer--"
+	StaticText "This is not guaranteed to always work."
+}
+
+OptionMenu "UaS_Misc_Options" {
+	Title "Misc Options"
+}

@@ -1,0 +1,9 @@
+GameInfo {
+	AddEventHandlers = "UaS_Spawner"
+	AddEventHandlers = "UaS_Bootstrap"
+	AddEventHandlers = "UaS_Scarcity_Handler"
+	AddEventHandlers = "UaS_FragRemovalHandler"
+	AddEventHandlers = "UaS_AI_Bootstrap"
+	AddEventHandlers = "UaS_VisWeps_Bootstrap"
+	AddEventHandlers = "UaS_YOLO_Handler"
+}

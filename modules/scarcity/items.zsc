@@ -1,0 +1,195 @@
+// Damaged automap
+class UaS_Automap : HDPickup {
+	int status;
+	int baseFrame;
+	double cycleProb;
+	bool working;
+
+	Default {
+		scale 0.3;
+	}
+
+	override void actualpickup(actor other) {
+		switch(status) {
+			case 0: // Functioning Normally
+				target = other;
+				A_GiveToTarget("MapRevealer",1);
+				A_Log("\c-Local area map downloaded.");
+				A_StartSound("misc/i_pkup",0,volume:1);
+				return;
+				break;
+			case 1: // Damaged
+				if(working) {
+					target = other;
+					A_GiveToTarget("MapRevealer",1);
+					A_Log("\c-Local area map downloaded.");
+					A_StartSound("misc/i_pkup",0,volume:1);
+				}
+				if(UaS.RandomChance(0.25)) { status = 2; }
+				return;
+				break;
+			case 2: // Broken, might randomly fix
+				if(UaS.RandomChance(0.25)) { status = 1; }
+				return;
+				break;
+		}
+	}
+
+	action void UpdateFrame() {
+		invoker.cycleProb += 0.0001;
+		switch(invoker.status) {
+			case 0: // Functioning Normally
+				invoker.sprite = GetSpriteIndex('PMAP');
+				if(invoker.frame == invoker.baseFrame) { invoker.frame = invoker.baseFrame + 4; }
+				else { invoker.frame = invoker.baseFrame; }
+
+				if(UaS.RandomChance(invoker.cycleProb)) {
+					invoker.baseFrame = random(0,3);
+					invoker.cycleProb = 0;
+				}
+				break;
+			case 1: // Damaged
+				invoker.sprite = GetSpriteIndex('HSCV');
+				if(invoker.baseframe < 10) { invoker.baseframe = 10; }
+
+				if(invoker.working) {
+					if(invoker.frame == invoker.baseFrame) { invoker.frame = 9; }
+					else { invoker.frame = invoker.baseFrame; }
+					invoker.tics += random(0,2);
+				}
+				else {
+					invoker.frame = 9;
+					invoker.tics += random(0,5);
+				}
+
+				if(UaS.RandomChance(0.1)) { invoker.working = !invoker.working; }
+
+				if(UaS.RandomChance(invoker.cycleProb)) {
+					invoker.baseFrame = random(10,13);
+					invoker.cycleProb = 0;
+				}
+				break;
+			case 2: // Broken and useless
+				invoker.sprite = GetSpriteIndex('HSCV');
+				invoker.frame = 9;
+				break;
+		}
+	}
+
+	States {
+		Spawn:
+			TNT1 A 1;
+		SpawnLoop:
+			#### # 1 UpdateFrame();
+			Loop;
+	}
+}
+
+// Loose injector pickups
+class UaS_StimInjector : Actor {
+	default {
+		translation "176:191=80:95";
+	}
+
+	override void PostBeginPlay(){
+		let spawneditem = Inventory(actor.Spawn("PortableStimpack", (pos.x, pos.y, pos.z + 5)));
+		if(spawneditem) {
+			spawneditem.sprite = GetSpriteIndex('SYRG');
+			spawneditem.frame = 0;
+			spawneditem.translation = translation;
+			spawneditem.scale.x = 0.32;
+			spawneditem.scale.y = 0.28;
+			//spawneditem.PickupMsg = "Picked up a loose stim injector.";
+		}
+		destroy();
+		super.PostBeginPlay();
+	}
+}
+
+class UaS_ZerkInjector : Actor {
+	default {
+		translation "112:127=107:111";
+	}
+
+	override void PostBeginPlay(){
+		let spawneditem = Inventory(actor.Spawn("PortableBerserkPack", (pos.x, pos.y, pos.z + 5)));
+		if(spawneditem) {
+			spawneditem.sprite = GetSpriteIndex('SYRG');
+			spawneditem.frame = 0;
+			spawneditem.translation = translation;
+			spawneditem.scale.x = 0.32;
+			spawneditem.scale.y = 0.28;
+			spawneditem.amount = 1;
+			//spawneditem.PickupMsg = "Picked up a loose zerk injector.";
+		}
+		destroy();
+		super.PostBeginPlay();
+	}
+}
+
+// Can't actually pick these up, but they respond to the action
+class UaS_FakePickup : HDPickup {
+	override void actualpickup(actor other) {
+		return;
+	}
+}
+
+class UaS_EmptyStimpack : UaS_FakePickup {
+	default {
+		scale 0.3;
+	}
+
+	States {
+		Spawn:
+			HSCV E 1;
+			Loop;
+	}
+}
+
+class UaS_EmptyMedikit : UaS_FakePickup {
+	default {
+		scale 0.3;
+	}
+
+	States {
+		Spawn:
+			HSCV F 1;
+			Loop;
+	}
+}
+
+class UaS_EmptyZerkpack : UaS_FakePickup {
+	default {
+		scale 0.3;
+	}
+
+	States {
+		Spawn:
+			HSCV G 1;
+			Loop;
+	}
+}
+
+class UaS_EmptyRocketBox : UaS_FakePickup {
+	default {
+		scale 0.5;
+	}
+
+	States {
+		Spawn:
+			HSCV H 1;
+			Loop;
+	}
+}
+
+class UaS_BrokenLiteAmp : UaS_FakePickup {
+	default {
+		scale 0.5;
+	}
+
+	States {
+		Spawn:
+			HSCV O 1;
+			Loop;
+	}
+}
