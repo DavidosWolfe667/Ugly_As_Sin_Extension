@@ -7,6 +7,18 @@ extend class UaS_Looting_Handler {
 	Array<UaS_LootEntry> HDMarineHunterLoot;
 	Array<UaS_LootEntry> HDMarineSMGLoot;
 	Array<UaS_LootEntry> HDMarineRocketLoot;
+	Array<UaS_LootEntry> ru_vsr_akmLoot;
+	Array<UaS_LootEntry> ru_vsr_aksLoot;
+	Array<UaS_LootEntry> ru_emr_akmLoot;
+	Array<UaS_LootEntry> ru_emr_aksLoot;
+	Array<UaS_LootEntry> usmc_m4cLoot;
+	Array<UaS_LootEntry> usmc_m4cm203Loot;
+	Array<UaS_LootEntry> usmc_m14Loot;
+	Array<UaS_LootEntry> usmc_m249Loot;
+	Array<UaS_LootEntry> usmc_fostechLoot;
+	Array<UaS_LootEntry> usmc_mp5Loot;
+	Array<UaS_LootEntry> op_uziLoot;
+	Array<UaS_LootEntry> op_m107Loot;
 
 	void InitializeLootTables() {
 		// ZombieStormtrooper Loot Table
@@ -131,6 +143,456 @@ extend class UaS_Looting_Handler {
 			HDMarineRocketLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
 			HDMarineRocketLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
 		}
+		//##Rus VSR AKM 	ru_vsr_akmLoot##
+			//Weaponkit
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("BAKM_762Mag", 1, 1, 0.75));
 
+			//Attachments
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+
+			//Spare Ammo
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("B762SovAmmo", 2, 10, 0.2));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("B762SovBrass", 2, 10, 0.25));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.25));
+  		ru_vsr_akmLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.25));
+  		ru_vsr_akmLoot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.25));
+
+			//Medical
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.2));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			ru_vsr_akmLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			ru_vsr_akmLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##Rus VSR AK74 	ru_vsr_aksLoot##
+			//Weaponkit
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("BAK_545Mag", 1, 1, 0.75));
+
+			//Attachments
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+
+			//Spare Ammo
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("B545Ammo", 2, 10, 0.2));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("B545Brass", 2, 10, 0.25));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.25));
+  		ru_vsr_aksLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.25));
+  		ru_vsr_aksLoot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.25));
+
+			//Medical
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.2));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			ru_vsr_aksLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			ru_vsr_aksLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##Rus EMR AKM 	ru_emr_akmLoot##
+		
+					//Weaponkit
+		ru_emr_akmLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("BAKM_762Mag", 1, 1, 0.75));
+
+			//Attachments
+		ru_emr_akmLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+
+			//Spare Ammo
+		ru_emr_akmLoot.push(UaS_LootEntry.create("B762SovAmmo", 2, 10, 0.2));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("B762SovBrass", 2, 10, 0.25));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.25));
+  		ru_emr_akmLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.25));
+  		ru_emr_akmLoot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.25));
+
+			//Medical
+		ru_emr_akmLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		ru_emr_akmLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.2));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			ru_emr_akmLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			ru_emr_akmLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##Rus EMR AK74	ru_emr_aksLoot##
+			//Weaponkit
+		ru_emr_aksLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("BAK_545Mag", 1, 1, 0.75));
+
+			//Attachments
+		ru_emr_aksLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+
+			//Spare Ammo
+		ru_emr_aksLoot.push(UaS_LootEntry.create("B545Ammo", 2, 10, 0.2));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("B545Brass", 2, 10, 0.25));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.25));
+  		ru_emr_aksLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.25));
+  		ru_emr_aksLoot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.25));
+
+			//Medical
+		ru_emr_aksLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		ru_emr_aksLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.2));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			ru_emr_aksLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			ru_emr_aksLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC M4 	usmc_m4cLoot##
+			//Weaponkit
+		usmc_m4cLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B556Mag", 1, 1, 0.75));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.05));
+
+			//Attachments
+		usmc_m4cLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_M16_Silencer", 1, 1, 0.02));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_M16_Flashlight", 1, 1, 0.05));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_ACOG_Red", 1, 1, 0.10));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.05));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.05));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.01));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_Scope_10x", 1, 1, 0.01));
+		
+			//Spare Ammo
+		usmc_m4cLoot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 5, 1.0));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B556Ammo", 2, 10, 0.2));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B556Brass", 2, 10, 0.2));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_556Ball", 2, 10, 0.2));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.05));
+  		usmc_m4cLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.05));
+  		usmc_m4cLoot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.05));
+
+			//Medical
+		usmc_m4cLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_m4cLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		usmc_m4cLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_m4cLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_m4cLoot.push(UaS_LootEntry.create("B556MagEmpty", 1, 1, 0.25));
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_m4cLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_m4cLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC M4 M203 	usmc_m4cm203Loot##
+			//Weaponkit
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B556Mag", 1, 1, 0.75));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.05));
+
+			//Attachments
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_M16_Silencer", 1, 1, 0.01));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_M16_Flashlight", 1, 1, 0.05));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_ACOG_Red", 1, 1, 0.10));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.04));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.01));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.01));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Scope_10x", 1, 1, 0.01));
+		
+			//Spare Ammo
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 5, 1.0));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B556Ammo", 2, 10, 0.2));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B556Brass", 2, 10, 0.2));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_556Ball", 2, 10, 0.2));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.05));
+  		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.05));
+  		usmc_m4cm203Loot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.05));
+
+			//Medical
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.75));
+		usmc_m4cm203Loot.push(UaS_LootEntry.create("B556MagEmpty", 1, 1, 0.25));
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_m4cm203Loot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_m4cm203Loot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC m14 	usmc_m14Loot##
+			//Weaponkit
+		usmc_m14Loot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
+		usmc_m14Loot.push(UaS_LootEntry.create("b762_m14_mag", 1, 1, 0.75));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.15));
+
+			//Attachments
+		usmc_m14Loot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.05));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_M14_Silencer", 1, 1, 0.05));
+		usmc_m14Loot.push(UaS_LootEntry.create("GlockSilencer", 1, 1, 0.02));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_ACOG_Red", 1, 1, 0.10));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.03));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.01));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.01));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_Scope_10x", 1, 1, 0.05));
+		
+			//Spare Ammo
+		usmc_m14Loot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 5, 1.0));
+		usmc_m14Loot.push(UaS_LootEntry.create("B762x51Ammo", 1, 5, 0.2));
+		usmc_m14Loot.push(UaS_LootEntry.create("B762x51Brass", 1, 5, 0.2));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_762Ball", 1, 5, 0.2));
+		usmc_m14Loot.push(UaS_LootEntry.create("B_GunPowder", 5, 15, 0.05));
+  		usmc_m14Loot.push(UaS_LootEntry.create("B_Lead", 5, 15, 0.05));
+  		usmc_m14Loot.push(UaS_LootEntry.create("B_Brass", 5, 15, 0.05));
+
+			//Medical
+		usmc_m14Loot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_m14Loot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		usmc_m14Loot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_m14Loot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_m14Loot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.2));
+		usmc_m14Loot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+		usmc_m14Loot.push(UaS_LootEntry.create("B762MagEmpty", 1, 1, 0.25));
+		
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_m14Loot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_m14Loot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC m249 	usmc_m249Loot##
+				//Weaponkit
+		usmc_m249Loot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.05));
+		usmc_m249Loot.push(UaS_LootEntry.create("BM249Mag", 1, 1, 0.5));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.01));
+
+			//Attachments
+		usmc_m249Loot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.05));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_M16_Silencer", 1, 1, 0.01));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_M16_Flashlight", 1, 1, 0.01));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_ACOG_Red", 1, 1, 0.10));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.10));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.02));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.01));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_Scope_10x", 1, 1, 0.00));
+		
+			//Spare Ammo
+		usmc_m249Loot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 5, 1.0));
+		usmc_m249Loot.push(UaS_LootEntry.create("B556Ammo", 5, 25, 0.2));
+		usmc_m249Loot.push(UaS_LootEntry.create("B556Brass", 10, 40, 0.2));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_556Ball", 5, 25, 0.05));
+		usmc_m249Loot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.02));
+  		usmc_m249Loot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.02));
+  		usmc_m249Loot.push(UaS_LootEntry.create("B_Brass", 2, 10, 0.02));
+
+			//Medical
+		usmc_m249Loot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_m249Loot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+
+			//Rare
+		usmc_m249Loot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_m249Loot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_m249Loot.push(UaS_LootEntry.create("BM249MagEmpty", 1, 1, 0.25));
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_m249Loot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_m249Loot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC AutoShot	usmc_fostechLoot##
+			//Weaponkit
+		usmc_fostechLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.45));
+		usmc_fostechLoot.push(UaS_LootEntry.create("BFauxDrum", 1, 1, 0.75));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.05));
+
+			//Attachments
+		usmc_fostechLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.05));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_M16_Flashlight", 1, 1, 0.15));
+		usmc_fostechLoot.push(UaS_LootEntry.create("FosSilencer", 1, 1, 0.02));
+  	 	usmc_fostechLoot.push(UaS_LootEntry.create("FosImprovedChoke", 1, 1, 0.05));
+   		usmc_fostechLoot.push(UaS_LootEntry.create("FosModifiedChoke", 1, 1, 0.05));
+   		usmc_fostechLoot.push(UaS_LootEntry.create("FosFullChoke", 1, 1, 0.05));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.05));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.05));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.05));
+		
+
+			//Spare Ammo
+		usmc_fostechLoot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 15, 1.00));
+		usmc_fostechLoot.push(UaS_LootEntry.create("HDShellAmmo", 1, 5, 0.20));
+		usmc_fostechLoot.push(UaS_LootEntry.create("B_GunPowder", 2, 10, 0.10));
+  		usmc_fostechLoot.push(UaS_LootEntry.create("B_Lead", 2, 10, 0.10));
+
+			//Medical
+		usmc_fostechLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_fostechLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+		usmc_fostechLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+
+			//Rare
+		usmc_fostechLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_fostechLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_fostechLoot.push(UaS_LootEntry.create("BFauxDrumEmpty", 1, 1, 0.25));
+		usmc_fostechLoot.push(UaS_LootEntry.create("doorbuster", 1, 1, 0.25));
+
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_fostechLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_fostechLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##USMC MP5	usmc_mp5Loot##
+			//Weaponkit
+		usmc_mp5Loot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.45));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B9mm_MP5K_MAG", 1, 1, 0.75));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_Glock", 1, 1, 0.05));
+
+			//Attachments
+		usmc_mp5Loot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.05));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_M16_Flashlight", 1, 1, 0.15));
+		usmc_mp5Loot.push(UaS_LootEntry.create("GlockSilencer", 1, 1, 0.25));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_Sight_CRdot", 1, 1, 0.02));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_Sight_Holo_Red", 1, 1, 0.05));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_Reflex_Red", 1, 1, 0.05));
+		
+
+			//Spare Ammo
+		usmc_mp5Loot.push(UaS_LootEntry.create("HDPistolAmmo", 1, 30, 1.00));
+		usmc_mp5Loot.push(UaS_LootEntry.create("B_GunPowder", 1, 5, 0.10));
+  		usmc_mp5Loot.push(UaS_LootEntry.create("B_Lead", 1, 5, 0.10));
+
+			//Medical
+		usmc_mp5Loot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		usmc_mp5Loot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+		usmc_mp5Loot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.1));
+
+			//Rare
+		usmc_mp5Loot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.1));
+		usmc_mp5Loot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		usmc_mp5Loot.push(UaS_LootEntry.create("BMp5MagEmpty", 1, 1, 0.25));
+		usmc_mp5Loot.push(UaS_LootEntry.create("doorbuster", 1, 1, 0.15));
+		
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			usmc_mp5Loot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			usmc_mp5Loot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//##SpecOp UZI 	op_uziLoot##
+			//Weaponkit
+		op_uziLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.50));
+		op_uziLoot.push(UaS_LootEntry.create("UziMagazine", 1, 1, 0.75));
+
+			//Attachments
+		op_uziLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+		op_uziLoot.push(UaS_LootEntry.create("GlockSilencer", 1, 1, 0.50));
+
+			//Spare Ammo
+		op_uziLoot.push(UaS_LootEntry.create("HDPistolAmmo", 10, 20, 1.0));
+
+			//Medical
+		op_uziLoot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		op_uziLoot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+		op_uziLoot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.25));
+		
+
+			//Rare
+		op_uziLoot.push(UaS_LootEntry.create("RandomCraftingBench", 1, 2, 0.1));
+		op_uziLoot.push(UaS_LootEntry.create("HEATAmmo", 1, 2, 0.1));
+		op_uziLoot.push(UaS_LootEntry.create("BrontornisRound", 1, 1, 0.1));
+		op_uziLoot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.25));
+		op_uziLoot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		op_uziLoot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		op_uziLoot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.25));
+		op_uziLoot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+		op_uziLoot.push(UaS_LootEntry.create("doorbuster", 1, 1, 0.15));
+
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			op_uziLoot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			op_uziLoot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
+
+		//SpecOp M107 	op_m107Loot##
+			//Weaponkit
+		op_m107Loot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.50));
+		op_m107Loot.push(UaS_LootEntry.create("M107Magazine", 1, 1, 0.75));
+		op_m107Loot.push(UaS_LootEntry.create("B_Uzi", 1, 1, 0.05));
+		op_m107Loot.push(UaS_LootEntry.create("UziMagazine", 1, 1, 0.05));
+
+			//Attachments
+		op_m107Loot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
+		op_m107Loot.push(UaS_LootEntry.create("B_ACOG_Red", 1, 1, 0.10));
+		op_m107Loot.push(UaS_LootEntry.create("B_Scope_10x", 1, 1, 0.50));
+
+			//Spare Ammo
+		op_m107Loot.push(UaS_LootEntry.create("HDPistolAmmo", 10, 20, 1.0));
+		op_m107Loot.push(UaS_LootEntry.create("B50BMGAmmo", 1, 5, 0.5));
+
+			//Medical
+		op_m107Loot.push(UaS_LootEntry.create("PortableMedikit", 1, 1, 0.25));
+		op_m107Loot.push(UaS_LootEntry.create("PortableStimpack", 1, 1, 0.5));
+		op_m107Loot.push(UaS_LootEntry.create("PortableBerserkPack", 1, 1, 0.25));
+		
+			//Rare
+		op_m107Loot.push(UaS_LootEntry.create("RandomCraftingBench", 1, 2, 0.1));
+		op_m107Loot.push(UaS_LootEntry.create("HEATAmmo", 1, 2, 0.1));
+		op_m107Loot.push(UaS_LootEntry.create("BrontornisRound", 1, 1, 0.1));
+		op_m107Loot.push(UaS_LootEntry.create("PortableLiteAmp", 1, 1, 0.25));
+		op_m107Loot.push(UaS_LootEntry.create("PortableRadsuit", 1, 1, 0.1));
+		op_m107Loot.push(UaS_LootEntry.create("HDBattery", 1, 1, 0.2));
+		op_m107Loot.push(UaS_LootEntry.create("HDIEDKit", 1, 5, 0.25));
+		op_m107Loot.push(UaS_LootEntry.create("HDRocketAmmo", 1, 1, 0.5));
+		
+			//UaS Technical
+		if (UaS_HungerEnabled) {
+			op_m107Loot.push(UaS_LootEntry.create("UaS_FoodRation", 1, 1, 0.25));
+			op_m107Loot.push(UaS_LootEntry.create("UaS_WaterRation", 1, 1, 0.25));
+		}
 	}
 }

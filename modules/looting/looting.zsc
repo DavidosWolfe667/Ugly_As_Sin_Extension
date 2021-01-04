@@ -142,6 +142,102 @@ class UaS_Looting_Handler : Inventory {
 			maxAmount = DragonGuardLoot[lootIndex].maxAmount;
 			rarityFactor = DragonGuardLoot[lootIndex].rarityFactor;
 		}
+		if(spawnTarget is "ru_vsr_akm") {
+			tableSize = ru_vsr_akmLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_vsr_akmLoot[lootIndex].itemName;
+			minAmount = ru_vsr_akmLoot[lootIndex].minAmount;
+			maxAmount = ru_vsr_akmLoot[lootIndex].maxAmount;
+			rarityFactor = ru_vsr_akmLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_vsr_aks") {
+			tableSize = ru_vsr_aksLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_vsr_aksLoot[lootIndex].itemName;
+			minAmount = ru_vsr_aksLoot[lootIndex].minAmount;
+			maxAmount = ru_vsr_aksLoot[lootIndex].maxAmount;
+			rarityFactor = ru_vsr_aksLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_emr_akm") {
+			tableSize = ru_emr_akmLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_emr_akmLoot[lootIndex].itemName;
+			minAmount = ru_emr_akmLoot[lootIndex].minAmount;
+			maxAmount = ru_emr_akmLoot[lootIndex].maxAmount;
+			rarityFactor = ru_emr_akmLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "ru_emr_aks") {
+			tableSize = ru_emr_aksLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = ru_emr_aksLoot[lootIndex].itemName;
+			minAmount = ru_emr_aksLoot[lootIndex].minAmount;
+			maxAmount = ru_emr_aksLoot[lootIndex].maxAmount;
+			rarityFactor = ru_emr_aksLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m4c") {
+			tableSize = usmc_m4cLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m4cLoot[lootIndex].itemName;
+			minAmount = usmc_m4cLoot[lootIndex].minAmount;
+			maxAmount = usmc_m4cLoot[lootIndex].maxAmount;
+			rarityFactor = usmc_m4cLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m4cm203") {
+			tableSize = usmc_m4cm203Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m4cm203Loot[lootIndex].itemName;
+			minAmount = usmc_m4cm203Loot[lootIndex].minAmount;
+			maxAmount = usmc_m4cm203Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m4cm203Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_m14") {
+			tableSize = usmc_m14Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m14Loot[lootIndex].itemName;
+			minAmount = usmc_m14Loot[lootIndex].minAmount;
+			maxAmount = usmc_m14Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m14Loot[lootIndex].rarityFactor;
+			}
+		if(spawnTarget is "usmc_m249") {
+			tableSize = usmc_m249Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_m249Loot[lootIndex].itemName;
+			minAmount = usmc_m249Loot[lootIndex].minAmount;
+			maxAmount = usmc_m249Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_m249Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_fostech") {
+			tableSize = usmc_fostechLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_fostechLoot[lootIndex].itemName;
+			minAmount = usmc_fostechLoot[lootIndex].minAmount;
+			maxAmount = usmc_fostechLoot[lootIndex].maxAmount;
+			rarityFactor = usmc_fostechLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "usmc_mp5") {
+			tableSize = usmc_mp5Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = usmc_mp5Loot[lootIndex].itemName;
+			minAmount = usmc_mp5Loot[lootIndex].minAmount;
+			maxAmount = usmc_mp5Loot[lootIndex].maxAmount;
+			rarityFactor = usmc_mp5Loot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "op_uzi") {
+			tableSize = op_uziLoot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = op_uziLoot[lootIndex].itemName;
+			minAmount = op_uziLoot[lootIndex].minAmount;
+			maxAmount = op_uziLoot[lootIndex].maxAmount;
+			rarityFactor = op_uziLoot[lootIndex].rarityFactor;
+		}
+		if(spawnTarget is "op_m107") {
+			tableSize = op_m107Loot.Size() - 1;
+			lootIndex = random(0, tableSize);
+			LootClass = op_m107Loot[lootIndex].itemName;
+			minAmount = op_m107Loot[lootIndex].minAmount;
+			maxAmount = op_m107Loot[lootIndex].maxAmount;
+			rarityFactor = op_m107Loot[lootIndex].rarityFactor;
+		}
 		if(spawnTarget is "HDMarine") {
 			int weapontype = HDMarine(spawnTarget).wep;
 			switch(weapontype) {
