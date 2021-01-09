@@ -147,6 +147,7 @@ extend class UaS_Looting_Handler {
 			//Weaponkit
 		ru_vsr_akmLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
 		ru_vsr_akmLoot.push(UaS_LootEntry.create("BAKM_762Mag", 1, 1, 0.75));
+		ru_vsr_akmLoot.push(UaS_LootEntry.create("B_Grach", 1, 1, 0.05));
 
 			//Attachments
 		ru_vsr_akmLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
@@ -181,6 +182,7 @@ extend class UaS_Looting_Handler {
 			//Weaponkit
 		ru_vsr_aksLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
 		ru_vsr_aksLoot.push(UaS_LootEntry.create("BAK_545Mag", 1, 1, 0.75));
+		ru_vsr_aksLoot.push(UaS_LootEntry.create("B_Grach", 1, 1, 0.05));
 
 			//Attachments
 		ru_vsr_aksLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
@@ -216,6 +218,7 @@ extend class UaS_Looting_Handler {
 					//Weaponkit
 		ru_emr_akmLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
 		ru_emr_akmLoot.push(UaS_LootEntry.create("BAKM_762Mag", 1, 1, 0.75));
+		ru_emr_akmLoot.push(UaS_LootEntry.create("B_Grach", 1, 1, 0.05));
 
 			//Attachments
 		ru_emr_akmLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));
@@ -250,6 +253,7 @@ extend class UaS_Looting_Handler {
 			//Weaponkit
 		ru_emr_aksLoot.push(UaS_LootEntry.create("HDFragGrenadeAmmo", 1, 1, 0.25));
 		ru_emr_aksLoot.push(UaS_LootEntry.create("BAK_545Mag", 1, 1, 0.75));
+		ru_emr_aksLoot.push(UaS_LootEntry.create("B_Grach", 1, 1, 0.05));
 
 			//Attachments
 		ru_emr_aksLoot.push(UaS_LootEntry.create("UaS_WeaponSling", 1, 1, 0.10));

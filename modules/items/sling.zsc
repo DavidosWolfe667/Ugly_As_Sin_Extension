@@ -14,7 +14,19 @@ extend class UaS_Spawner {
 			e.Thing.GetClassName() == "vulcanette" ||
 			e.Thing.GetClassName() == "liberatorrifle" ||
 			e.Thing.GetClassName() == "liberatornogl" ||
-			e.Thing.GetClassName() == "bossrifle"
+			e.Thing.GetClassName() == "bossrifle" ||
+			e.Thing.GetClassName() == "B_MP5" ||
+			e.Thing.GetClassName() == "B_M4" ||
+			e.Thing.GetClassName() == "B_M14" ||
+			e.Thing.GetClassName() == "B_FAUX" ||
+			e.Thing.GetClassName() == "B_MF249" ||
+			e.Thing.GetClassName() == "B_M4M203" ||
+			e.Thing.GetClassName() == "B_MP5M203" ||
+			e.Thing.GetClassName() == "B_RPGL" ||
+			e.Thing.GetClassName() == "B_M107" ||
+			e.Thing.GetClassName() == "B_AKS74U" ||
+			e.Thing.GetClassName() == "B_AKM" ||
+			e.Thing.GetClassName() == "B_UZI"
 		);
 
 		if (spawnable && UaS.RandomChance(0.2)) { UaS.SpawnStuff("UaS_WeaponSling", 1, e.Thing.pos); }
